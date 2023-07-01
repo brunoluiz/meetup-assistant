@@ -1,0 +1,66 @@
+template:
+  # FIXME: how to do a copy using Github
+  address: 'git+file:///Users/bruno.silva/git/personal/templates'
+  # address: 'git+https://github.com/LondonGophers/templates'
+
+comms:
+  # Speakers email
+  - name: 'send invitation for the event (admin details)'
+    audience: 'speakers'
+    task:
+      channel: 'email'
+      template: 'templates/speakers/003-admin-details.md'
+    type: 'immediate'
+    prev: ''
+    next: 'invitation-sent'
+
+  - name: 'send email two weeks before'
+    audience: 'speakers'
+    task:
+      channel: 'email'
+      template: 'templates/speakers/004-reminder-two-weeks.md'
+    when: '30d'
+    type: 'before'
+    prev: ''
+    next: 'early-reminder-sent'
+
+  - name: 'send email a few days before'
+    audience: 'speakers'
+    task:
+      channel: 'email'
+      template: 'templates/speakers/004-reminder.md'
+    when: '2d'
+    type: 'before'
+    prev: 'two-weeks-before-comms-sent'
+    next: 'final-reminder-sent'
+
+  - name: 'thank you'
+    audience: 'speakers'
+    task:
+      channel: 'email'
+      template: 'templates/speakers/005-thank-you.md'
+    when: '1d'
+    type: 'after'
+    prev: 'final-reminder-sent'
+    next: 'thanks-sent'
+
+  # Venues/hosts emails
+  - name: 'admin details'
+    audience: 'host'
+    task:
+      channel: 'email'
+      template: 'templates/venues/001-admin-details.md'
+    when: '30d'
+    type: 'before'
+    prev: ''
+    next: 'admin-sent'
+
+  - name: 'thank you'
+    audience: 'host'
+    task:
+      channel: 'email'
+      template: 'templates/venues/002-thank-you.md'
+    when: '1d'
+    type: 'after'
+    prev: 'admin-sent'
+    next: 'thanks-sent'

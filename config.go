@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/brunoluiz/meetup-assistant/internal/channel/email"
 	"github.com/brunoluiz/meetup-assistant/internal/tasker"
 	"github.com/hako/durafmt"
 )
@@ -20,7 +21,8 @@ type Config struct {
 	Template struct {
 		Address string `yaml:"address"`
 	} `yaml:"template"`
-	Comms []CommJob `yaml:"comms"`
+	Email email.Config `yaml:"email"`
+	Comms []CommJob    `yaml:"comms"`
 }
 
 type CommJob struct {

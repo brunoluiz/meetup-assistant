@@ -44,11 +44,11 @@ func New(opts ...Channel) *Factory {
 	return f
 }
 
-func (f *Factory) Get(channelType Type) (*Channel, error) {
-	switch channelType {
-	case TypeEmail:
-		return nil, nil
-	default:
+func (f *Factory) Get(channelType Type) (Channel, error) {
+	c, ok := f.channel[channelType]
+	if !ok {
 		return nil, fmt.Errorf("channel '%s' not supported", channelType)
 	}
+
+	return c, nil
 }

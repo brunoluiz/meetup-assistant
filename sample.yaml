@@ -3,6 +3,10 @@ template:
   address: 'git+file:///Users/bruno.silva/git/personal/templates'
   # address: 'git+https://github.com/LondonGophers/templates'
 
+mail:
+  provider: noop
+  domain: localhost
+
 comms:
   # Speakers email
   - name: 'send invitation for the event (admin details)'
@@ -46,7 +50,7 @@ comms:
 
   # Venues/hosts emails
   - name: 'admin details'
-    audience: 'host'
+    audience: 'hosts'
     task:
       channel: 'email'
       template: 'templates/venues/001-admin-details.md'
@@ -56,7 +60,7 @@ comms:
     next: 'admin-sent'
 
   - name: 'thank you'
-    audience: 'host'
+    audience: 'hosts'
     task:
       channel: 'email'
       template: 'templates/venues/002-thank-you.md'

@@ -27,7 +27,7 @@ type Event struct {
 }
 
 type Repository interface {
-	GetActiveEvents(ctx context.Context) ([]*Event, error)
+	GetActiveEvents(ctx context.Context) ([]Event, error)
 }
 
 type StateStorage interface {
@@ -44,6 +44,15 @@ type Meetup struct {
 	state  StateStorage
 	tasker Tasker
 	jobs   []CommJob
+}
+
+func New(repo Repository, state StateStorage, tasker Tasker, jobs []CommJob) *Meetup {
+	return &Meetup{
+		repo:   repo,
+		state:  state,
+		tasker: tasker,
+		jobs:   jobs,
+	}
 }
 
 func (s *Meetup) Run(ctx context.Context) error {
@@ -76,6 +85,11 @@ func (s *Meetup) Run(ctx context.Context) error {
 				}
 
 				if err := s.tasker.Run(ctx, config.Task, target); err != nil {
+					errs = errors.Join(errs, err)
+					continue
+				}
+
+				if err := s.state.Save(ctx, config.Audience, target.Address, config.Next); err != nil {
 					errs = errors.Join(errs, err)
 				}
 			}

@@ -6,7 +6,7 @@ import (
 	"github.com/brunoluiz/meetup-assistant/internal/channel"
 )
 
-func getTargets(audience string, e *Event) ([]channel.Target, error) {
+func getTargets(audience string, e Event) ([]channel.Target, error) {
 	targets := []channel.Target{}
 
 	switch audience {

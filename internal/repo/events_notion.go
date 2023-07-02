@@ -6,7 +6,6 @@ import (
 	"time"
 
 	meetup_assistant "github.com/brunoluiz/meetup-assistant"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/jomei/notionapi"
 )
 
@@ -139,7 +138,6 @@ func (m *EventsNotion) GetActiveEvents(ctx context.Context) ([]meetup_assistant.
 		event.MeetupID = e.Properties["MeetupID"].(*notionapi.RichTextProperty).RichText[0].PlainText
 		event.Name = e.Properties["Name"].(*notionapi.TitleProperty).Title[0].PlainText
 		event.Date = time.Time(*e.Properties["Date"].(*notionapi.DateProperty).Date.Start)
-		// spew.Dump(e.Properties)
 
 		event.Hosts, err = m.getHosts(ctx, e.Properties["Hosts"].(*notionapi.RelationProperty).Relation[0].ID)
 		if err != nil {
@@ -158,7 +156,6 @@ func (m *EventsNotion) GetActiveEvents(ctx context.Context) ([]meetup_assistant.
 
 		out = append(out, event)
 	}
-	spew.Dump(out)
 
 	return out, nil
 }

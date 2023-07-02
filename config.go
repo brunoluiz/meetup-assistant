@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/brunoluiz/meetup-assistant/internal/channel/email"
 	"github.com/brunoluiz/meetup-assistant/internal/tasker"
 	"github.com/hako/durafmt"
+	"github.com/jomei/notionapi"
 )
 
 type WhenType string
@@ -17,12 +17,34 @@ const (
 	WhenTypeAfterEvent  WhenType = "after"
 )
 
+type NotionConfig struct {
+	Tables NotionTables `json:"tables"`
+}
+
+type NotionTables struct {
+	Events      notionapi.DatabaseID `json:"events"`
+	Submissions notionapi.DatabaseID `json:"submissions"`
+	Venues      notionapi.DatabaseID `json:"venues"`
+	Hosts       notionapi.DatabaseID `json:"hosts"`
+}
+
+type DatabaseConfig struct {
+	Notion NotionConfig `json:"notion" yaml:"notion"`
+}
+
+type EmailConfig struct {
+	Provider string `yaml:"provider"`
+	APIToken string `yaml:"api_token" env:"EMAIL_API_TOKEN"`
+	Domain   string `yaml:"domain"`
+}
+
 type Config struct {
 	Template struct {
 		Address string `yaml:"address"`
 	} `yaml:"template"`
-	Email email.Config `yaml:"email"`
-	Comms []CommJob    `yaml:"comms"`
+	Email    EmailConfig    `yaml:"email"`
+	Comms    []CommJob      `yaml:"comms"`
+	Database DatabaseConfig `yaml:"database"`
 }
 
 type CommJob struct {

@@ -53,7 +53,12 @@ func run() error {
 	)
 
 	tasker := tasker.New(channels)
-	return meetup_assistant.New(&repo.EventsMock{}, state, tasker, config.Comms).Run(ctx)
+	r, err := repo.New(os.Getenv("DB_DSN"), config.Database)
+	if err != nil {
+		return err
+	}
+
+	return meetup_assistant.New(r, state, tasker, config.Comms).Run(ctx)
 }
 
 func main() {

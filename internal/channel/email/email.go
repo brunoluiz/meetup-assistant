@@ -4,16 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	meetup_assistant "github.com/brunoluiz/meetup-assistant"
 	"github.com/brunoluiz/meetup-assistant/internal/channel"
 	"github.com/brunoluiz/meetup-assistant/internal/templater"
 	"golang.org/x/exp/slog"
 )
-
-type Config struct {
-	Provider string `yaml:"provider"`
-	APIToken string `yaml:"api_token" env:"EMAIL_API_TOKEN"`
-	Domain   string `yaml:"domain"`
-}
 
 type Template interface {
 	Render(ctx context.Context, path string, params map[string]any) (*templater.Content, error)
@@ -28,7 +23,7 @@ type Mailer interface {
 	Send(ctx context.Context, target channel.Target, subject, body string) error
 }
 
-func New(config Config, template Template, idempotency Idempotency) *Email {
+func New(config meetup_assistant.EmailConfig, template Template, idempotency Idempotency) *Email {
 	var m Mailer
 	provider := "noop"
 

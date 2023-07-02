@@ -3,16 +3,16 @@ module github.com/brunoluiz/meetup-assistant
 go 1.20
 
 require (
-	github.com/adrg/frontmatter v0.2.0
 	github.com/davecgh/go-spew v1.1.1
 	github.com/gomarkdown/markdown v0.0.0-20230322041520-c84983bdbf2a
 	github.com/hairyhenderson/go-fsimpl v0.0.0-20230629122648-1d32ef430ca9
 	github.com/hako/durafmt v0.0.0-20210608085754-5c1018a4e16b
+	github.com/jomei/notionapi v1.12.1
+	golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df
 	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
-	github.com/BurntSushi/toml v0.3.1 // indirect
 	github.com/Microsoft/go-winio v0.6.0 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20230518184743-7afd39499903 // indirect
 	github.com/acomagu/bufpipe v1.0.4 // indirect
@@ -26,15 +26,16 @@ require (
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
 	github.com/kevinburke/ssh_config v1.2.0 // indirect
 	github.com/pjbgf/sha1cd v0.3.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/skeema/knownhosts v1.1.1 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	golang.org/x/crypto v0.10.0 // indirect
-	golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df // indirect
 	golang.org/x/mod v0.11.0 // indirect
 	golang.org/x/net v0.11.0 // indirect
 	golang.org/x/sys v0.9.0 // indirect
 	golang.org/x/tools v0.8.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
+
+replace github.com/jomei/notionapi => ../notionapi

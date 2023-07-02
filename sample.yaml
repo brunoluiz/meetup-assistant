@@ -7,6 +7,14 @@ mail:
   provider: noop
   domain: localhost
 
+database:
+  notion:
+    tables:
+      events: '498658b8ac6e488ea8dd9fbdd006dc3d'
+      submissions: '41ea2d213d9a42faab5e2b1b91a5c36b'
+      venues: 'ec65bdcafa2b4b25bf87945ae4b661d0'
+      hosts: '76114b6a784042a6ac0f18b5f393bd01'
+
 comms:
   # Speakers email
   - name: 'send invitation for the event (admin details)'

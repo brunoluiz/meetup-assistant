@@ -33,9 +33,6 @@ type DatabaseConfig struct {
 }
 
 type Config struct {
-	Template struct {
-		Address string `yaml:"address"`
-	} `yaml:"template"`
 	Comms    []CommJob      `yaml:"comms"`
 	Database DatabaseConfig `yaml:"database"`
 }

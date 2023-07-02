@@ -1,7 +1,7 @@
 package templater
 
 type Meta struct {
-	Subject string
+	Subject string `json:"subject" yaml:"subject"`
 }
 
 type Content struct {

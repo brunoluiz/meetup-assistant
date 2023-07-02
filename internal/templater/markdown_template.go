@@ -3,6 +3,7 @@ package templater
 import (
 	"bytes"
 	"context"
+	"encoding/json"
 	"io/fs"
 	"text/template"
 
@@ -19,25 +20,42 @@ func NewMarkdownHTML(fs fs.FS) *MarkdownHTML {
 }
 
 func (p *MarkdownHTML) Render(_ context.Context, path string, params map[string]any) (*Content, error) {
-	tpl, err := template.ParseFS(p.fs, path)
+	mdBuf, err := p.renderBuffer(path, "md", params)
 	if err != nil {
 		return nil, err
 	}
 
-	data := bytes.NewBuffer([]byte{})
-	if err := tpl.Execute(data, params); err != nil {
-		return nil, err
+	meta := Meta{
+		Subject: "empty subject",
 	}
 
-	meta := Meta{
-		Subject: "test",
+	metaBuf, err := p.renderBuffer(path, "json", params)
+	if err == nil {
+		if jerr := json.Unmarshal(metaBuf, &meta); jerr != nil {
+			return nil, err
+		}
 	}
+
 	parse := parser.NewWithExtensions(
 		parser.CommonExtensions | parser.AutoHeadingIDs,
 	)
 
 	return &Content{
-		Body: string(markdown.ToHTML(data.Bytes(), parse, nil)),
+		Body: string(markdown.ToHTML(mdBuf, parse, nil)),
 		Meta: meta,
 	}, nil
+}
+
+func (p *MarkdownHTML) renderBuffer(path, ext string, params map[string]any) ([]byte, error) {
+	tpl, err := template.ParseFS(p.fs, path+"."+ext)
+	if err != nil {
+		return nil, err
+	}
+
+	buf := bytes.NewBuffer([]byte{})
+	if err := tpl.Execute(buf, params); err != nil {
+		return nil, err
+	}
+
+	return buf.Bytes(), nil
 }

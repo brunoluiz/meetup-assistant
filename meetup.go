@@ -19,11 +19,18 @@ type Host struct {
 	Email string
 }
 
+type Venue struct {
+	Name    string
+	Address string
+}
+
 type Event struct {
-	ID       string
+	MeetupID string
+	Name     string
 	Date     time.Time
 	Speakers []Speaker
 	Hosts    []Host
+	Venue    Venue
 }
 
 type Repository interface {

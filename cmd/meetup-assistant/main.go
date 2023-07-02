@@ -8,10 +8,10 @@ import (
 	"github.com/brunoluiz/meetup-assistant/internal/channel"
 	"github.com/brunoluiz/meetup-assistant/internal/channel/email"
 	"github.com/brunoluiz/meetup-assistant/internal/repo"
-	"github.com/brunoluiz/meetup-assistant/internal/source"
 	"github.com/brunoluiz/meetup-assistant/internal/storage"
 	"github.com/brunoluiz/meetup-assistant/internal/tasker"
 	"github.com/brunoluiz/meetup-assistant/internal/templater"
+	"github.com/brunoluiz/meetup-assistant/internal/templater/source"
 	"golang.org/x/exp/slog"
 	"gopkg.in/yaml.v3"
 )

@@ -21,6 +21,6 @@ func getTargets(audience string, e Event) ([]channel.Target, error) {
 		}
 		return targets, nil
 	default:
-		return nil, fmt.Errorf("event '%s' audience '%s' not supported", e.ID, audience)
+		return nil, fmt.Errorf("event '%s' audience '%s' not supported", e.MeetupID, audience)
 	}
 }

@@ -1,4 +1,4 @@
-package git
+package source
 
 import (
 	"io/fs"
@@ -7,9 +7,9 @@ import (
 	"github.com/hairyhenderson/go-fsimpl/gitfs"
 )
 
-func New(address string) (fs.FS, error) {
+func New(dsn string) (fs.FS, error) {
 	mux := fsimpl.NewMux()
 	mux.Add(gitfs.FS)
 
-	return mux.Lookup(address)
+	return mux.Lookup(dsn)
 }

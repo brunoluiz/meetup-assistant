@@ -12,6 +12,9 @@ type Repository interface {
 	GetActiveEvents(ctx context.Context) ([]meetup_assistant.Event, error)
 }
 
+// New parse DSN and create a Repository from it.
+// DSN format: <scheme>://<host>/<path>?<query>
+// notion://<database>?token=<token>
 func New(dsn string, config meetup_assistant.DatabaseConfig) (Repository, error) {
 	u, err := url.Parse(dsn)
 	if err != nil {

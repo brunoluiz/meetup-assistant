@@ -8,7 +8,7 @@ import (
 	"github.com/brunoluiz/meetup-assistant/internal/channel"
 	"github.com/brunoluiz/meetup-assistant/internal/channel/email"
 	"github.com/brunoluiz/meetup-assistant/internal/repo"
-	"github.com/brunoluiz/meetup-assistant/internal/source/git"
+	"github.com/brunoluiz/meetup-assistant/internal/source"
 	"github.com/brunoluiz/meetup-assistant/internal/storage"
 	"github.com/brunoluiz/meetup-assistant/internal/tasker"
 	"github.com/brunoluiz/meetup-assistant/internal/templater"
@@ -29,7 +29,7 @@ func run() error {
 		return err
 	}
 
-	src, err := git.New(config.Template.Address)
+	src, err := source.New(os.Getenv("TEMPLATE_DSN"))
 	if err != nil {
 		return err
 	}

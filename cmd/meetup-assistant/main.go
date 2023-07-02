@@ -44,13 +44,16 @@ func run() error {
 		return err
 	}
 
-	channels := channel.New(
-		email.New(
-			config.Email,
-			templater.NewMarkdownHTML(src),
-			idempotency,
-		),
+	mailer, err := email.New(
+		os.Getenv("EMAIL_DSN"),
+		templater.NewMarkdownHTML(src),
+		idempotency,
 	)
+	if err != nil {
+		return err
+	}
+
+	channels := channel.New(mailer)
 
 	tasker := tasker.New(channels)
 	r, err := repo.New(os.Getenv("DB_DSN"), config.Database)

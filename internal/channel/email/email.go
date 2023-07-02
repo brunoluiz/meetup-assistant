@@ -3,8 +3,8 @@ package email
 import (
 	"context"
 	"fmt"
+	"net/url"
 
-	meetup_assistant "github.com/brunoluiz/meetup-assistant"
 	"github.com/brunoluiz/meetup-assistant/internal/channel"
 	"github.com/brunoluiz/meetup-assistant/internal/templater"
 	"golang.org/x/exp/slog"
@@ -23,15 +23,28 @@ type Mailer interface {
 	Send(ctx context.Context, target channel.Target, subject, body string) error
 }
 
-func New(config meetup_assistant.EmailConfig, template Template, idempotency Idempotency) *Email {
+func New(
+	dsn string,
+	template Template,
+	idempotency Idempotency,
+) (*Email, error) {
 	var m Mailer
-	provider := "noop"
+	u, err := url.Parse(dsn)
+	if err != nil {
+		return nil, err
+	}
 
-	switch config.Provider {
+	provider := u.Scheme
+
+	switch provider {
+	case "mailgun":
+		token := u.Query().Get("token")
+		domain := u.Host
+		m = NewMailgun(domain, token)
 	case "noop":
-		fallthrough
-	default:
 		m = NewFS("/tmp")
+	default:
+		return nil, fmt.Errorf("unknown email provider: '%s'", provider)
 	}
 
 	slog.Debug("Email provider created", "provider", provider)
@@ -41,7 +54,7 @@ func New(config meetup_assistant.EmailConfig, template Template, idempotency Ide
 		mailer:      m,
 		template:    template,
 		idempotency: idempotency,
-	}
+	}, nil
 }
 
 type Email struct {

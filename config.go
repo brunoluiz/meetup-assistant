@@ -32,17 +32,10 @@ type DatabaseConfig struct {
 	Notion NotionConfig `json:"notion" yaml:"notion"`
 }
 
-type EmailConfig struct {
-	Provider string `yaml:"provider"`
-	APIToken string `yaml:"api_token" env:"EMAIL_API_TOKEN"`
-	Domain   string `yaml:"domain"`
-}
-
 type Config struct {
 	Template struct {
 		Address string `yaml:"address"`
 	} `yaml:"template"`
-	Email    EmailConfig    `yaml:"email"`
 	Comms    []CommJob      `yaml:"comms"`
 	Database DatabaseConfig `yaml:"database"`
 }

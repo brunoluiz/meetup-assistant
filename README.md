@@ -21,15 +21,12 @@
 
 ## Todo
 
-- Implement noop mailer
-- Implement real mailer
 - Implement noop twitter
 - Implement real twitter
 - Implement and test state machine
-- Implement storage layers
-- Implement Notion integration
 
 ## Technologies I want to try
 
-- zap
+- slog
 - wire
+- cobra

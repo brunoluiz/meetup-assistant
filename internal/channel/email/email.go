@@ -36,7 +36,7 @@ func New(config Config, template Template, idempotency Idempotency) *Email {
 	case "noop":
 		fallthrough
 	default:
-		m = NewNoop()
+		m = NewFS("/tmp")
 	}
 
 	slog.Debug("Email provider created", "provider", provider)

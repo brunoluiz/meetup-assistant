@@ -13,7 +13,7 @@ comms:
     audience: 'speakers'
     task:
       channel: 'email'
-      template: 'templates/speakers/003-admin-details.md'
+      template: 'templates/speakers/003-admin-details'
     type: 'immediate'
     prev: ''
     next: 'invitation-sent'
@@ -22,7 +22,7 @@ comms:
     audience: 'speakers'
     task:
       channel: 'email'
-      template: 'templates/speakers/004-reminder-two-weeks.md'
+      template: 'templates/speakers/004-reminder-two-weeks'
     when: '30d'
     type: 'before'
     prev: ''
@@ -32,7 +32,7 @@ comms:
     audience: 'speakers'
     task:
       channel: 'email'
-      template: 'templates/speakers/004-reminder.md'
+      template: 'templates/speakers/004-reminder'
     when: '2d'
     type: 'before'
     prev: 'two-weeks-before-comms-sent'
@@ -42,7 +42,7 @@ comms:
     audience: 'speakers'
     task:
       channel: 'email'
-      template: 'templates/speakers/005-thank-you.md'
+      template: 'templates/speakers/005-thank-you'
     when: '1d'
     type: 'after'
     prev: 'final-reminder-sent'
@@ -53,7 +53,7 @@ comms:
     audience: 'hosts'
     task:
       channel: 'email'
-      template: 'templates/venues/001-admin-details.md'
+      template: 'templates/venues/001-admin-details'
     when: '30d'
     type: 'before'
     prev: ''
@@ -63,7 +63,7 @@ comms:
     audience: 'hosts'
     task:
       channel: 'email'
-      template: 'templates/venues/002-thank-you.md'
+      template: 'templates/venues/002-thank-you'
     when: '1d'
     type: 'after'
     prev: 'admin-sent'

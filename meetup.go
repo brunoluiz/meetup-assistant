@@ -96,5 +96,5 @@ func (s *Meetup) Run(ctx context.Context) error {
 		}
 	}
 
-	return err
+	return errs
 }

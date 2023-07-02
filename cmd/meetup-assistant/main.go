@@ -63,6 +63,6 @@ func main() {
 
 	if err := run(); err != nil {
 		slog.Error(err.Error())
-		panic(err)
+		os.Exit(1)
 	}
 }

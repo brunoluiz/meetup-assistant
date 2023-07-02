@@ -45,9 +45,9 @@ func (m *StateJSON) key(audience, key string) string {
 func (m *StateJSON) Get(ctx context.Context, audience, key string) (string, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
-
-	slog.DebugCtx(ctx, "StateJSON.Get", "audience", audience, "key", key)
-	return m.state[m.key(audience, key)], nil
+	val := m.state[m.key(audience, key)]
+	slog.DebugCtx(ctx, "StateJSON.Get", "audience", audience, "key", key, "value", val)
+	return val, nil
 }
 
 func (m *StateJSON) Save(ctx context.Context, audience, key, state string) error {
@@ -61,6 +61,6 @@ func (m *StateJSON) Save(ctx context.Context, audience, key, state string) error
 		return err
 	}
 
-	slog.DebugCtx(ctx, "StateJSON.Save", "audience", audience, "key", key, "state", state)
+	slog.DebugCtx(ctx, "StateJSON.Save", "audience", audience, "key", key, "value", state)
 	return os.WriteFile(m.path, obj, 0644)
 }
